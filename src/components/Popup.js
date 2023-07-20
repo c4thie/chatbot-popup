@@ -14,11 +14,34 @@ if (process.env.NODE_ENV === "development") {
   url = remoteBackendURL;
 }
 
+
+async function initializeChat(userId) {
+  try {
+    await fetch(`${url}/initialize`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ user_id: userId }),
+    });
+
+    return "Chat session initialized successfully";
+  } catch (error) {
+    console.error("Error initializing chat session:", error);
+    return "Sorry, there was an error initializing the chat session.";
+  }
+}
+
 const Popup = () => {
+  // conversation array
   const [messages, setMessages] = useState([]);
+  // current user input
   const [inputText, setInputText] = useState("");
+  // chatbot status
   const [active, setActive] = useState(false);
-  let userId = Math.random(10);
+
+  // mock user ID
+  let userId = 1;
 
   useEffect(() => {
     initializeChat(userId);
@@ -26,28 +49,21 @@ const Popup = () => {
     console.log("Chatbot initiated.");
   }, []);
 
-  async function initializeChat(userId) {
-    try {
-      await fetch(`${url}/initialize`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ user_id: userId }),
-      });
-
-      return "Chat session initialized successfully";
-    } catch (error) {
-      console.error("Error initializing chat session:", error);
-      return "Sorry, there was an error initializing the chat session.";
-    }
-  }
-
   // Function to send the user's message and receive the chatbot's response
   const sendMessage = async () => {
     if (inputText.trim() === "") return;
 
     console.log(inputText);
+
+    const requestedData = {
+      message: inputText,
+      user_id: userId,
+    };
+
+    
+  // Function to send the user's message and receive the chatbot's response
+  const sendMessage = async () => {
+    if (inputText.trim() === "") return;
 
     const requestedData = {
       message: inputText,
@@ -69,14 +85,19 @@ const Popup = () => {
       }
 
       const data = await response.json();
-      setMessages([...messages, { text: inputText, isUserMessage: true }]);
-      setMessages([...messages, { text: data.answer, isUserMessage: false }]);
-      setInputText("");
+      setMessages([
+        ...messages,
+        { text: inputText, isUserMessage: true },
+        { text: data.answer, isUserMessage: false },
+      ]);
 
-      console.log("sent", data.answer);
+      console.log("conversation messages:", messages);
+      console.log("chatbot response:", data.answer);
     } catch (error) {
       console.error("Error fetching chatbot response", error);
     }
+
+    setInputText("");
   };
 
   return (
