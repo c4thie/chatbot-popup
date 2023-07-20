@@ -1,5 +1,7 @@
 # Chatbot popup standalone
 
+IMPORTANT NOTE: Please make your own branch and do your code development in that branch (You can also ### `git checkout master` to use the master branch as well)
+
 This is the frontend of the ai-chatbot to be added to the existing admin-app
 
 ## Available Scripts
