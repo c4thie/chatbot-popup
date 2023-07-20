@@ -53,18 +53,6 @@ const Popup = () => {
   const sendMessage = async () => {
     if (inputText.trim() === "") return;
 
-    console.log(inputText);
-
-    const requestedData = {
-      message: inputText,
-      user_id: userId,
-    };
-
-    
-  // Function to send the user's message and receive the chatbot's response
-  const sendMessage = async () => {
-    if (inputText.trim() === "") return;
-
     const requestedData = {
       message: inputText,
       user_id: userId,
