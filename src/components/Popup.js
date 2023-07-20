@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-
 import { send } from "../assets";
 import "./Popup.css";
+import Header from "./Header"; // Import the Header component
 
 const localBackendURL = "http://127.0.0.1:5001";
 const remoteBackendURL = "http://192.168.1.129:5001";
@@ -14,42 +14,34 @@ if (process.env.NODE_ENV === "development") {
   url = remoteBackendURL;
 }
 
-async function initializeChat(userId) {
-  try {
-    await fetch(`${url}/initialize`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ user_id: userId }),
-    });
-
-    return "Chat session initialized successfully";
-  } catch (error) {
-    console.error("Error initializing chat session:", error);
-    return "Sorry, there was an error initializing the chat session.";
-  }
-}
-
-const Chatbot = (props) => {
-  // conversation array
+const Popup = () => {
   const [messages, setMessages] = useState([]);
-
-  // current user input
   const [inputText, setInputText] = useState("");
-
-  // chatbot status
   const [active, setActive] = useState(false);
-
-  // mock user ID
   let userId = Math.random(10);
 
-  // initialize chatbot on first launch
   useEffect(() => {
     initializeChat(userId);
     setActive((prevState) => !prevState);
     console.log("Chatbot initiated.");
   }, []);
+
+  async function initializeChat(userId) {
+    try {
+      await fetch(`${url}/initialize`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user_id: userId }),
+      });
+
+      return "Chat session initialized successfully";
+    } catch (error) {
+      console.error("Error initializing chat session:", error);
+      return "Sorry, there was an error initializing the chat session.";
+    }
+  }
 
   // Function to send the user's message and receive the chatbot's response
   const sendMessage = async () => {
@@ -89,6 +81,10 @@ const Chatbot = (props) => {
 
   return (
     <div className="chatbot-container">
+      {/* Header */}
+      <Header />
+
+      {/* Chat messages */}
       <div className="chat-window">
         {messages.map((message, index) => (
           <div
@@ -101,6 +97,8 @@ const Chatbot = (props) => {
           </div>
         ))}
       </div>
+
+      {/* Input */}
       <div className="chat-input">
         <input
           type="text"
@@ -116,4 +114,4 @@ const Chatbot = (props) => {
   );
 };
 
-export default Chatbot;
+export default Popup;
