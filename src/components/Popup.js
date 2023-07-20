@@ -32,20 +32,20 @@ async function initializeChat(userId) {
   }
 }
 
-const Popup = () => {
+const Popup = ({ isVisible }) => {
   // conversation array
   const [messages, setMessages] = useState([]);
   // current user input
   const [inputText, setInputText] = useState("");
   // chatbot status
-  const [active, setActive] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   // mock user ID
   let userId = 1;
 
   useEffect(() => {
-    initializeChat(userId);
-    setActive((prevState) => !prevState);
+    initializeChat(userId).then(() => setIsActive(true));
+    console.log(isActive);
     console.log("Chatbot initiated.");
   }, []);
 
@@ -89,9 +89,9 @@ const Popup = () => {
   };
 
   return (
-    <div className="chatbot-container">
+    <div className={`chatbot-container ${isVisible ? "show" : "hidden"}`}>
       {/* Header */}
-      <Header />
+      <Header active={isActive} />
 
       {/* Chat messages */}
       <div className="chat-window">
@@ -105,6 +105,9 @@ const Popup = () => {
           </TextBubble>
         ))}
       </div>
+
+      {/* Divider */}
+      <hr />
 
       {/* Input */}
       <div className="chat-input">

@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className="App">
-      {toggle && <Popup />}
+      <Popup isVisible={toggle} />
       <Chatbutton onClick={clickHandler} isToggled={toggle} />
     </div>
   );

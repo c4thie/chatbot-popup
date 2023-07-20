@@ -1,40 +1,85 @@
-/* Style for the text bubble component inside the Chat window */
-.text-bubble {
+/* Style for the text bubble container */
+.message-container {
+  display: flex;
+  align-items: center;
   margin-bottom: 10px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  max-width: 80%;
 }
 
-/* Style for user messages (sent by the user) */
-.text-bubble.user {
-  background-color: #dfdfdf;
+.message-container.user {
+  justify-content: flex-end;
 }
 
-/* Style for bot messages (sent by the chatbot) */
-.text-bubble.chatbot {
-  background-color: #e6f2ff;
-  border: 1px solid #cacaca;
-}
-
-/* Style for each individual message in the Chat window */
+/* Style for the text bubble (message) */
 .message {
-  margin-bottom: 10px;
+  font-family: "Open Sans", "Helvetica Neue";
+  color: black;
   padding: 5px 10px;
   border-radius: 5px;
+  max-width: 11rem;
 }
 
 /* Style for user messages (sent by the user) */
 .user-message {
   background-color: #dfdfdf;
-
-  margin-left: 20px;
+  margin-left: 10px;
 }
 
 /* Style for bot messages (sent by the chatbot) */
 .bot-message {
   background-color: #e6f2ff;
   border: 1px solid #cacaca;
+  margin-right: 10px;
+}
 
-  margin-right: 20px;
+/* Style for the icon container */
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: black;
+  align-self: flex-end;
+}
+
+.icon-container.bot {
+  margin-right: 10px;
+}
+
+.icon-container.user {
+  margin-left: 10px;
+}
+
+/* Style for the icon image */
+.icon-container img {
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
+}
+
+/* Style for the speech mark (before pseudo-element) */
+.message:before {
+  content: "";
+  position: absolute;
+  border-style: solid;
+  border-width: 0 10px 10px 0;
+  border-color: transparent #dfdfdf transparent transparent;
+  /* Position the speech mark appropriately */
+  right: -8px;
+  top: 10px;
+}
+
+/* Style for user message speech mark */
+.user-message:before {
+  border-color: transparent transparent transparent #dfdfdf;
+  right: auto;
+  left: -8px;
+}
+
+/* Style for the chatbot message speech mark */
+.bot-message:before {
+  border-color: transparent #e6f2ff transparent transparent;
+  right: -8px;
+  top: 10px;
 }

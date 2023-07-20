@@ -4,26 +4,42 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  text-align: left;
-  justify-content: left;
-  padding: 0 20px;
+  justify-content: space-between; /* Align items to the right */
+  padding: 0 16px;
   border-top-left-radius: 7px;
   border-top-right-radius: 7px;
   box-shadow: var(--primaryBoxShadow);
-  background-color: #0056b3;
+  background-color: #0d4d95;
+  height: 60px; /* Set the desired height for the header */
 }
 
 .chatbox__image--header {
-  margin-right: 10px;
+  margin: 4px 6px 0px 0px;
 }
 
 .chatbox__heading--header {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  font-family: "Montserrat", sans-serif;
   color: rgb(255, 255, 255);
   text-align: left;
+  margin: 0; /* Remove default margin to avoid extra space */
 }
 
-.chatbox__description--header {
-  font-size: 0.9rem;
-  color: rgb(15, 53, 135);
+/* Add new CSS for the active button */
+.active-status {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid white;
+
+  margin-left: 55px;
+  margin-right: 5px;
+}
+
+.active {
+  background-color: #00cc00;
+}
+
+.inactive {
+  background-color: #ff3300;
 }
