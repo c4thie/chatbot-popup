@@ -1,12 +1,10 @@
-import React from 'react';
+import React from "react";
 
 import "./TextBubble.css";
 
 const TextBubble = ({ text, isUser }) => {
   return (
-    <div className={`text-bubble ${isUser ? 'user' : 'chatbot'}`}>
-      {text}
-    </div>
+    <div className={`message ${isUser ? "user" : "bot"}-message`}>{text}</div>
   );
 };
 

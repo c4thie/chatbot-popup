@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { send } from "../assets";
 import "./Popup.css";
 import Header from "./Header"; // Import the Header component
+import TextBubble from "./TextBubble";
 
 const localBackendURL = "http://127.0.0.1:5001";
 const remoteBackendURL = "http://192.168.1.129:5001";
@@ -13,7 +14,6 @@ if (process.env.NODE_ENV === "development") {
 } else {
   url = remoteBackendURL;
 }
-
 
 async function initializeChat(userId) {
   try {
@@ -96,14 +96,13 @@ const Popup = () => {
       {/* Chat messages */}
       <div className="chat-window">
         {messages.map((message, index) => (
-          <div
+          <TextBubble
             key={index}
-            className={`message ${
-              message.isUserMessage ? "user-message" : "bot-message"
-            }`}
+            text={message.text}
+            isUser={message.isUserMessage}
           >
             {message.text}
-          </div>
+          </TextBubble>
         ))}
       </div>
 
