@@ -4,16 +4,8 @@ import "./Popup.css";
 import Header from "./Header"; // Import the Header component
 import TextBubble from "./TextBubble";
 
-const localBackendURL = "http://127.0.0.1:5001";
-const remoteBackendURL = "http://192.168.1.129:5001";
-
-let url;
-
-if (process.env.NODE_ENV === "development") {
-  url = localBackendURL;
-} else {
-  url = remoteBackendURL;
-}
+const url = process.env.REACT_APP_SERVER_URL; // this is http://35.183.95.206
+console.log(url);
 
 async function initializeChat(userId) {
   try {
@@ -28,7 +20,7 @@ async function initializeChat(userId) {
     return "Chat session initialized successfully";
   } catch (error) {
     console.error("Error initializing chat session:", error);
-    return "Sorry, there was an error initializing the chat session.";
+    throw error;
   }
 }
 
@@ -44,9 +36,15 @@ const Popup = ({ isVisible }) => {
   let userId = 1;
 
   useEffect(() => {
-    initializeChat(userId).then(() => setIsActive(true));
-    console.log(isActive);
-    console.log("Chatbot initiated.");
+    initializeChat(userId)
+      .then(() => {
+        setIsActive(true);
+        console.log("Chatbot initiated.");
+      })
+      .catch((error) => {
+        setIsActive(false);
+        console.log(error);
+      });
   }, []);
 
   // Function to send the user's message and receive the chatbot's response
@@ -82,10 +80,18 @@ const Popup = ({ isVisible }) => {
       console.log("conversation messages:", messages);
       console.log("chatbot response:", data.answer);
     } catch (error) {
+      setIsActive(false);
       console.error("Error fetching chatbot response", error);
     }
 
     setInputText("");
+  };
+
+  // Sends message during key down event
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      sendMessage();
+    }
   };
 
   return (
@@ -115,6 +121,7 @@ const Popup = ({ isVisible }) => {
           type="text"
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
+          onKeyDown={handleKeyDown}
           placeholder="Enter your message"
         />
         <button onClick={sendMessage}>

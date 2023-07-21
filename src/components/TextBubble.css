@@ -57,29 +57,3 @@
   height: 20px;
   object-fit: cover;
 }
-
-/* Style for the speech mark (before pseudo-element) */
-.message:before {
-  content: "";
-  position: absolute;
-  border-style: solid;
-  border-width: 0 10px 10px 0;
-  border-color: transparent #dfdfdf transparent transparent;
-  /* Position the speech mark appropriately */
-  right: -8px;
-  top: 10px;
-}
-
-/* Style for user message speech mark */
-.user-message:before {
-  border-color: transparent transparent transparent #dfdfdf;
-  right: auto;
-  left: -8px;
-}
-
-/* Style for the chatbot message speech mark */
-.bot-message:before {
-  border-color: transparent #e6f2ff transparent transparent;
-  right: -8px;
-  top: 10px;
-}
