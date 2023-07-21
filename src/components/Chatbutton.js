@@ -11,7 +11,7 @@ const Chatbutton = ({ onClick, isToggled }) => {
     <button onClick={onClick} className="chatbot">
       {isToggled && (
         <ExpandMoreIcon
-          className="chatbot-icon"
+          className="chatbot-icon rotate-right-in"
           style={{ marginTop: "4px", fontSize: "2rem" }}
         />
       )}

@@ -7,6 +7,7 @@ import TextBubble from "./TextBubble";
 const url = process.env.REACT_APP_SERVER_URL; // this is http://35.183.95.206
 console.log(url);
 
+// Make an API call to server to initialize chatbot
 async function initializeChat(userId) {
   try {
     await fetch(`${url}/initialize`, {
@@ -43,7 +44,7 @@ const Popup = ({ isVisible }) => {
       })
       .catch((error) => {
         setIsActive(false);
-        console.log(error);
+        console.error(error);
       });
   }, []);
 
@@ -56,7 +57,7 @@ const Popup = ({ isVisible }) => {
       user_id: userId,
     };
 
-    // Make an API call to backend server to get the AI chatbot response
+    // Make an API call to server to get the AI chatbot response
     try {
       const response = await fetch(`${url}/chat`, {
         method: "POST",
