@@ -33,11 +33,12 @@ const Popup = ({ isVisible }) => {
   // chatbot status
   const [isActive, setIsActive] = useState(false);
 
-  // mock user ID
+  // mock user ID and phoneNum
   let userId = 1;
+  let phoneNum = "100";
 
   useEffect(() => {
-    initializeChat(userId)
+    initializeChat(userId, phoneNum)
       .then(() => {
         setIsActive(true);
         console.log("Chatbot initiated.");
